@@ -1,0 +1,58 @@
+<div id="home" class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="row-fluid">
+				<div class="library span6">
+					<div class="view">
+						<ul class="nav nav-list">
+							<li class="nav-header">Learn</li>
+							<li ng-repeat="field in fields" class="{{isSelected(field.id)}}">
+								<a href="#/!/{{field.id}}">
+									<i class="{{(isBook(field.id) && 'icon-file') || 'icon-folder-close'}}"></i>{{field.name}}
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="span6 well">
+					<h3>{{selected.name || "No file selected"}}</h3>
+					<div ng-show="selected.type == 'file'">
+						<div ng-repeat="(key, val) in selected">
+							<dt>{{key | uppercase}}</dt>
+							<dd>{{val}}</dd>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer class="navbar-fixed-bottom well">
+	<div class="caption" id='instructBox'>
+		<h5>Welcome, 
+			<span ng-bind-template="{{fields.length}} book{{(fields.length > 1 && 's') || ''}} online!"></span>
+		</h5>
+		<p>This is the <strong>Onstar - Bosz</strong> learning center.</p>
+		<p>First select the category, then select the topic, and finally, select the book and feed your mind!</p>
+	</div>
+
+	<!-- <div class="caption" id='fileBox'>
+		<h5>Title</h5>
+		<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+		<p>
+			<a class="btn btn-success" href="#"><i class="icon-download-alt icon-large"></i> Download</a>
+			<a class="btn btn-info" data-toggle="modal" href="#onlineViewer"><i class="icon-eye-open icon-large"></i> View Online</a>
+		</p>
+	</div>
+
+	<div class="modal fade" id="onlineViewer">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>Book Title</h3>
+		</div>
+		<div class="modal-body">
+			<p>THE ONLINE VERSION OF THE BOOK HERE.</p>
+		</div>
+	</div> -->
+</footer>

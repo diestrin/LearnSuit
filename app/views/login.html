@@ -1,0 +1,38 @@
+<div id="login" class="container-fluid">
+	<div class="row-fluid">
+		<form class="form-inline span4 offset4" ng-submit="login()">
+			<fieldset>
+				<legend>User Login</legend>
+
+				<div class="control-group">
+					<label class="control-label" for="username"><i class="icon-user"></i> Username</label>
+					<div class="controls">
+						<input type="text" autofocus="autofocus" placeholder="myUser" class="span12" ng-model="username" id="username">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="password"><i class="icon-key"></i> Password</label>
+					<div class="controls">
+						<input type="password" placeholder="myPass" class="span12" ng-model="password" id="password">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="span12 btn btn-primary">Sign in</button>
+					</div>
+					<p ng-show="!!error" class="errorMsg">{{error}}</p>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+<footer class="navbar-fixed-bottom well">
+	<h1>Welcome to the OnStar's Team Learning Center</h1>
+
+	<p>Inside you can find a list of trainning resources divided by field, category and topic.</p>
+	<p>If you would like to add a resource or have any suggestions or comments please contact: </p>
+	<p><a href="mailto:diego.barahona@boszdigital.com"><i class="icon-envelope"></i>  diego.barahona@boszdigital.com</a> or <a href="mailto:jair.reina@boszdigital.com"><i class="icon-envelope"></i> jair.reina@boszdigital.com</a></p>
+</footer>
