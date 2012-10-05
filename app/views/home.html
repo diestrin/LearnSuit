@@ -6,9 +6,9 @@
 					<div class="view">
 						<ul class="nav nav-list">
 							<li class="nav-header">Learn</li>
-							<li ng-repeat="field in fields" class="{{isSelected(field.id)}}">
-								<a href="#/!/{{field.id}}">
-									<i class="{{(isBook(field.id) && 'icon-file') || 'icon-folder-close'}}"></i>{{field.name}}
+							<li ng-repeat="field in fields" class="{{isSelected(field.url)}}">
+								<a href="#/!/{{field.url}}">
+									<i class="{{(isBook(field.url) && 'icon-file') || 'icon-folder-close'}}"></i>{{field.name}}
 								</a>
 							</li>
 						</ul>
