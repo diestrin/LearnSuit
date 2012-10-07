@@ -2,12 +2,14 @@
 
 // COntrollers
 
-function loginController ($scope, $http, $location){
+function loginController ($scope, $http, $location, bookLibrary){
+	bookLibrary(function(){}, true);
+
 	if(localStorage.getItem("usrInfo") === "dGVzdH4vfnRlc3Q="){
 		$location.url("/!");
 	}
 
-	$scope.login = function(){
+	function login(){
 		if($scope.username == "test" && $scope.password == "test"){
 			localStorage.setItem("usrInfo", btoa($scope.username + "~/~" + $scope.password));
 			$location.url("/!");
@@ -16,6 +18,7 @@ function loginController ($scope, $http, $location){
 		}
 	}
 
+	$scope.login = login;
 	$scope.error = false;
 }
 
@@ -23,45 +26,108 @@ function homeController ($scope, $routeParams, $http, $location, bookLibrary){
 	if(localStorage.getItem("usrInfo") !== "dGVzdH4vfnRlc3Q=") 
 		$location.url("/login");
 
-	var query = !!$routeParams.path && $routeParams.path.replace(/\w+\.\w+$/, '') ? 
-		"path=" + $routeParams.path.replace(/\/\w+\.\w+$/, '') + "&" : "";
-
 	bookLibrary(function(){
 		$scope.fields = this.get($routeParams.path);
+		$scope.totalFiles = this.getTotalFiles();
+
+		(function($scope, $routeParams){
+			var selected;
+
+			angular.forEach($scope.fields.files, function(book){
+				if(book.path === $routeParams.path)
+					return selected = book;
+			});
+
+			$scope.selected = selected
+		})($scope, $routeParams);
 	});
 	
 	function isSelected(itemPath){
-		return itemPath === $routeParams.path && isBook(itemPath) ? "active" : "";
+		return itemPath === $routeParams.path ? "active" : "";
 	}
 
-	function isBook(itemPath){
-		var is = false;
+	function isDirActive(folderPath){
+		if(folderPath === "" && !remporalPath)
+			return "active";
 
-		angular.forEach($scope.fields, function(book){
-			if(book.url === itemPath && book.type === "file")
-				return is = true;
+		var remporalPath = $routeParams.path.replace(/\/\w+\.\w+/, '');
+
+		return folderPath === remporalPath ? "active" : "";
+	}
+
+	function beautyName(uglyName) {
+		if(!uglyName) return "";
+
+		uglyName[0] = uglyName[0].toUpperCase();
+
+		angular.forEach(uglyName.match(/[a-z][A-Z]/g), function(match){
+			uglyName = uglyName.replace(match, match[0] + " " + match[1]);
 		});
 
-		return is;
+		uglyName = uglyName.replace(/\.\w+$/,'').replace(/[-_\.\+]/g,' ');
+
+		angular.forEach(uglyName.match(/ [a-z]/g), function(match){
+			uglyName = uglyName.replace(match, match.toUpperCase());
+		})
+
+		return uglyName; //--> Now it's beauty!
 	}
 
-	function getSelected(){
-		var selected;
+	function isVisible(item){
+		if(!item) return false;
 
-		angular.forEach($scope.fields, function(book){
-			if(book.url === $routeParams.path)
-				return selected = book;
-		});
-
-		return selected
+		switch(item.type){
+			case "txt":
+				return true;
+			case "mp4":
+				return true;
+			default:
+				return false;
+		}
 	}
 
-	$scope.selected = getSelected();
+	(function(currentPath){
+		var returnArray = [{
+			url: "",
+			name: "Home"
+		}],
+			tempObject,
+			lastPath = "";
+
+		if(currentPath){
+			angular.forEach(currentPath.split("/"), function(path){
+				if(path.match(/^\w+\.\w+$/))
+					return;
+
+				tempObject = {
+					url: lastPath + path,
+					name: path
+				};
+
+				lastPath = tempObject.url + "/";
+				returnArray.push(tempObject);
+			});
+		}
+
+		$scope.deep = returnArray;
+	})($routeParams.path);
+
 	$scope.isSelected = isSelected;
-	$scope.isBook = isBook;
-	$scope.getSelected = getSelected;
+	$scope.isDirActive = isDirActive;
+	$scope.beautyName = beautyName;
+	$scope.isVisible = isVisible;
+}
 
-	if(!!$scope.selected && !isBook($scope.selected.url)){
-		$scope.fields = $scope.selected.items;
-	}
+function viewController ($scope, $routeParams, $http, $location){
+	if(localStorage.getItem("usrInfo") !== "dGVzdH4vfnRlc3Q=") 
+		$location.url("/login");
+	
+	$scope.url = "/learn/" + $routeParams.path;
+
+	// $http({
+	// 	method: "get",
+	// 	url: "/phpFiles/" + $routeParams.path
+	// }).success(function(data){
+	// 	$scope.content = data;
+	// });
 }

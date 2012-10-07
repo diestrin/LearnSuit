@@ -1,31 +1,61 @@
 @import "compass_twitter_bootstrap";
 @import "compass_font_awesome";
-
-body {
-	padding-top: 60px;
-}
-
 @import "compass_twitter_bootstrap_responsive";
+@import "pdf";
 
 // Custom Styles
+
+*{
+	box-sizing: border-box;
+}
 
 h1, h2, h3, h4, h5, legend, label {
 	color: #333333;
 }
 
-body {
+html, body {
 	background: #ffffff;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
 
-#home, #login {
-	margin:30px 0 220px;
+#home, #login, #view{
+	padding-top: 80px;
+	padding-bottom: 170px;
+}
 
-	@media (max-width: 979px){
-		margin-bottom: 0;
-	}
+footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: whiteSmoke;
+	border-color:#E3E3E3;
+	border-style:solid;
+	border-width:1px 0;
+	padding: 30px 20px;
+}
+
+#main-app{
+	min-height: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 
 #home{
+
+	@media (max-width: 767px){
+		.breadcrumb{
+			font-size: 16px;
+			line-height: 24px;
+		}
+	}
+
+	#outerContainer{
+		position: relative;
+	}
+
 	.nav-list{
 
 		@media (max-width: 767px){
@@ -34,7 +64,7 @@ body {
 				a{
 					line-height: 35px;
 					font-size:20px;
-					letter-spacing: 3px;
+					letter-spacing: 2px;
 				}
 			}
 		}
@@ -50,6 +80,7 @@ body {
 	@media (max-width: 767px){
 		form{
 			margin-left: 0px;
+			padding: 0 20px;
 		}
 	}
 
@@ -65,5 +96,36 @@ body {
 
 	.control-group{
 		padding-bottom: 40px;
+	}
+}
+
+#view{
+	left: 50%;
+	margin-left: -400px;
+
+	@media (max-width: 767px){
+		.offset1{
+			margin-left: 0;
+		}
+	}
+}
+
+@media (max-width: 767px){
+	.navbar-fixed-top, 
+	.navbar-fixed-bottom{
+		margin-left:0;
+		margin-right:0;
+	}
+
+	footer{
+
+		h5{
+			font-size: 18px;
+			line-height: 24px;			
+		}
+
+		p{
+			font-size: 16px;
+		}
 	}
 }

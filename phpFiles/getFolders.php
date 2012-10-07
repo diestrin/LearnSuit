@@ -2,37 +2,41 @@
 
 if(isset($_GET["callback"]))
 	echo "$_GET[callback] (";
-
 echo <<<EOD
 [
 	{
-		id: "uno",
 		name: "Folder uno",
-		type: "dir",
-		items:[
-			{
-				id: "cuatro",
-				name: "Libro cuatro",
-				type: "file"
-			}
-		]
+		type: "folder",
+		url: "uno",
+		items: [{
+			name: "Folder X",
+			type: "folder",
+			url: "uno/X",
+			items: [{
+				name: "Libro Patito",
+				type: "file",
+				url: "uno/X/patito.file"
+			}]
+		},{
+			name: "Libro cuatro",
+			type: "file",
+			url: "uno/cuatro.file"
+		}]
 	},
 	{
-		id: "dos",
 		name: "Folder dos",
 		type: "folder",
-		items:[
-			{
-				id: "cinco",
-				name: "Libro cinco",
-				type: "file"
-			}
-		]
+		url: "dos",
+		items: [{
+			name: "Libro cinco",
+			type: "file",
+			url: "dos/cinco.file"
+		}]
 	},
 	{
-		id: "tres",
 		name: "Libro uno",
-		type: "file"
+		type: "file",
+		url: "uno.file"
 	}
 ]
 EOD;

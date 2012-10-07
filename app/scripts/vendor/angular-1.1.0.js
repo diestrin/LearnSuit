@@ -7151,7 +7151,7 @@ function $RouteProvider(){
           var paramRegExp = new RegExp(":" + param + "([\\W])");
           if (regex.match(paramRegExp)) {
             //regex = regex.replace(paramRegExp, "([^\\/]*)$1"); --> Old
-            regex = regex.replace(paramRegExp, "((\\w+(\\.\\w+)?\\/?)*)$1"); // --> New
+            regex = regex.replace(paramRegExp, "(([\\w\\s&-]+(\\.\\w+)?\\/?)*)$1"); // --> New
             params.push(param);
           }
         }
